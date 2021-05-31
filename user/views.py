@@ -14,3 +14,9 @@ def index(request):
         form = RegistrationForm()
     data = Registration.objects.all()
     return render(request,'index.html',{'form':form,'data':data})
+
+def delete(request,id):
+    if request.method == 'POST':
+        dat = Registration.objects.get(pk=id)
+        dat.delete()
+        return HttpResponseRedirect('/')
