@@ -15,6 +15,19 @@ def index(request):
     data = Registration.objects.all()
     return render(request,'index.html',{'form':form,'data':data})
 
+def update(request,id):
+    if request.method == 'POST':
+        reg = Registration.objects.get(pk=id)
+        form = RegistrationForm(request.POST,instance=reg) 
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        reg = Registration.objects.get(pk=id)
+        form = RegistrationForm(instance=reg)    
+    return render(request,'update.html',{'form':form})
+
 def delete(request,id):
     if request.method == 'POST':
         dat = Registration.objects.get(pk=id)
